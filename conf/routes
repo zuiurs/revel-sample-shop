@@ -5,20 +5,20 @@
 module:testrunner
 
 GET     /                                       App.Index
-GET     /merchandises                           Merchandises.Index
-GET     /merchandises/:id                       Merchandises.Show
-POST    /merchandises                           Merchandises.Create
-DELETE  /merchandises/:id                       Merchandises.Delete
-GET     /users                                  Users.Index
-GET     /users/:id                              Users.Show
-POST    /users                                  Users.Create
-DELETE  /users/:id                              Users.Delete
-GET     /roles                                  Roles.Index
-GET     /roles/:id                              Roles.Show
-POST    /roles                                  Roles.Create
-DELETE  /roles/:id                              Roles.Delete
-GET     /login                                  System.Login
-GET     /logout                                 System.Logout
+GET     /merchandises                           MerchandisesController.Index
+GET     /merchandises/:id                       MerchandisesController.Show
+POST    /merchandises                           MerchandisesController.Create
+DELETE  /merchandises/:id                       MerchandisesController.Delete
+GET     /users                                  UsersController.Index
+GET     /users/:id                              UsersController.Show
+POST    /users                                  UsersController.Create
+DELETE  /users/:id                              UsersController.Delete
+GET     /roles                                  RolesController.Index
+GET     /roles/:id                              RolesController.Show
+POST    /roles                                  RolesController.Create
+DELETE  /roles/:id                              RolesController.Delete
+GET     /login                                  SystemController.Login
+GET     /logout                                 SystemController.Logout
 
 
 # Ignore favicon requests
