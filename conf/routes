@@ -5,6 +5,21 @@
 module:testrunner
 
 GET     /                                       App.Index
+GET     /merchandises                           Merchandises.Index
+GET     /merchandises/:id                       Merchandises.Show
+POST    /merchandises                           Merchandises.Create
+DELETE  /merchandises/:id                       Merchandises.Delete
+GET     /users                                  Users.Index
+GET     /users/:id                              Users.Show
+POST    /users                                  Users.Create
+DELETE  /users/:id                              Users.Delete
+GET     /roles                                  Roles.Index
+GET     /roles/:id                              Roles.Show
+POST    /roles                                  Roles.Create
+DELETE  /roles/:id                              Roles.Delete
+GET     /login                                  System.Login
+GET     /logout                                 System.Logout
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
