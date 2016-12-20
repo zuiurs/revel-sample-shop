@@ -6,6 +6,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-3.3.6.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/sticky-footer.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/main.css">
     <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
     <script src="/public/js/jquery-2.2.4.min.js"></script>
     <script src="/public/js/bootstrap-3.3.6.min.js"></script>
@@ -17,3 +19,32 @@
     {{end}}
   </head>
   <body>
+
+    <header class="header">
+      <div id="title">
+      goyasan
+      </div>
+      <div class="header-menu">
+      {{if .currentUser}}
+        Connected as {{.currentUser.Username}}
+        |
+        <a class="header-link" href="{{url "Merchandises.Index"}}">Search</a>
+        |
+        <a class="header-link" href="{{url "Users.SettingsPage"}}">Settings</a>
+        |
+        <a class="header-link" href="{{url "Application.Logout"}}">Logout</a>
+      {{else}}
+        Please 
+        <a class="header-link" href="{{url "Application.Login"}}">Login</a>
+        first
+      {{end}}
+      </div>
+      {{if eq .currentUser.RoleID 1}}
+      <div class="admin-mode">Admin mode</div>
+      {{else if eq .currentUser.RoleID 3}}
+      <div class="guest-mode">Guest mode</div>
+      {{end}}
+      </div>
+    </header>
+
+    {{template "flash.html" .}}

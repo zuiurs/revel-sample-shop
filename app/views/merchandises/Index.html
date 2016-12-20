@@ -1,0 +1,18 @@
+{{set . "title" "MerchandiseIndex"}}
+{{template "header.html" .}}
+
+<h2>Shopping 棚</h2>
+
+<div class="container">
+  <div class="row">
+    {{range .merchandises}}
+    <div class="col-sm-3">
+      {{.Name}}<br />
+      $ {{.Price}}<br />
+      {{.Description}}
+    </div>
+    {{end}}
+  </div>
+</div>
+
+{{template "footer.html" .}}

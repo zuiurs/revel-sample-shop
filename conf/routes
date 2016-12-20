@@ -4,21 +4,31 @@
 
 module:testrunner
 
-GET     /                                       App.Index
-GET     /merchandises                           MerchandisesController.Index
-GET     /merchandises/:id                       MerchandisesController.Show
-POST    /merchandises                           MerchandisesController.Create
-DELETE  /merchandises/:id                       MerchandisesController.Delete
-GET     /users                                  UsersController.Index
-GET     /users/:id                              UsersController.Show
-POST    /users                                  UsersController.Create
-DELETE  /users/:id                              UsersController.Delete
-GET     /roles                                  RolesController.Index
-GET     /roles/:id                              RolesController.Show
-POST    /roles                                  RolesController.Create
-DELETE  /roles/:id                              RolesController.Delete
-GET     /login                                  SystemController.Login
-GET     /logout                                 SystemController.Logout
+GET     /                                       Application.Index
+
+GET     /merchandises                           Merchandises.Index
+GET     /merchandises/:id                       Merchandises.Show
+POST    /merchandises                           Merchandises.Create
+POST    /merchandises/:id/delete                Merchandises.Delete
+
+GET     /users                                  Users.Index
+GET     /users/:id                              Users.Show
+POST    /users                                  Users.Create
+POST    /users/:id/delete                       Users.Delete
+GET     /users/:id/settings                     Users.SettingsPage
+POST    /users/:id/settings                     Users.Settings
+
+GET     /roles                                  Roles.Index
+GET     /roles/:id                              Roles.Show
+POST    /roles                                  Roles.Create
+POST    /roles/:id/delete                       Roles.Delete
+
+GET     /login                                  Application.LoginPage
+POST    /login                                  Application.Login
+GET     /logout                                 Application.Logout
+GET     /register                               Application.RegisterPage
+POST    /register                               Application.Register
+GET     /admin                                  Application.Admin
 
 
 # Ignore favicon requests

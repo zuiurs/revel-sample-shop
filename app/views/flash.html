@@ -1,13 +1,13 @@
 {{if .flash.success}}
 <div class="alert alert-success">
-	{{.flash.success}}
+  <strong>{{.flash.success}}</strong>
 </div>
 {{end}}
 
 {{if or .errors .flash.error}}
 <div class="alert alert-error">
 	{{if .flash.error}}
-		{{.flash.error}}
+    <strong>{{.flash.error}}</strong>
 	{{end}}
 	<ul style="margin-top:10px;">
 		{{range .errors}}

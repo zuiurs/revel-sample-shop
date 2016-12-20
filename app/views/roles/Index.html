@@ -1,0 +1,37 @@
+{{set . "title" "RoleIndex"}}
+{{template "header.html" .}}
+
+<h2>Role Index</h2>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>CreatedAt</th>
+			<th>UpdatedAt</th>
+			<th>DeletedAt</th>
+      <th>Operation</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{range .roles}}
+		<tr>
+			<td>{{.ID}}</td>
+			<td>{{.Name}}</td>
+			<td>{{.CreatedAt}}</td>
+			<td>{{.UpdatedAt}}</td>
+			<td>{{.DeletedAt}}</td>
+      <td>
+        <form action="/roles/{{.ID}}/delete" method="POST">
+          <button type="submit" name="delete" value="Delete">Delete</button>
+        </form>
+      </td>
+		</tr>
+		{{end}}
+	</tbody>
+</table>
+
+<a href="{{url "Roles.CreatePage"}}">New Role</a>
+
+{{template "footer.html" .}}

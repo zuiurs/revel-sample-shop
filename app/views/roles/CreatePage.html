@@ -1,0 +1,20 @@
+{{set . "title" "Register"}}
+{{template "header.html" .}}
+
+<h1>Role Form:</h1>
+
+<form action="{{url "Roles.Create"}}" method="POST">
+  {{with $field := field "role.Name" .}}
+    <p>
+      <strong>Name:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}"> *
+    </p>
+  {{end}}
+  <p class="buttons">
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<a href="{{url "Roles.Index"}}">Cancel</a>
+
+{{template "footer.html" .}}

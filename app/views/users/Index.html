@@ -1,0 +1,40 @@
+{{set . "title" "UserIndex"}}
+{{template "header.html" .}}
+
+<h2>User Index</h2>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Username</th>
+			<th>HashedPassword</th>
+      <th>RoleID</th>
+			<th>CreatedAt</th>
+			<th>UpdatedAt</th>
+			<th>DeletedAt</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{range .users}}
+		<tr>
+			<td>{{.ID}}</td>
+			<td>{{.Username}}</td>
+			<td>{{.HashedPassword}}</td>
+      <td>{{.RoleID}}</td>
+			<td>{{.CreatedAt}}</td>
+			<td>{{.UpdatedAt}}</td>
+			<td>{{.DeletedAt}}</td>
+      <td>
+        <form action="/users/{{.ID}}/delete" method="POST">
+          <button type="submit" name="delete" value="Delete">Delete</button>
+        </form>
+      </td>
+		</tr>
+		{{end}}
+	</tbody>
+</table>
+
+<a href="{{url "Users.CreatePage"}}">New User</a>
+
+{{template "footer.html" .}}

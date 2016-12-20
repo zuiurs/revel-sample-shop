@@ -1,0 +1,32 @@
+{{set . "title" "Register"}}
+{{template "header.html" .}}
+
+<h1>User Form:</h1>
+
+<form action="{{url "Users.Create"}}" method="POST">
+  {{with $field := field "user.Username" .}}
+    <p>
+      <strong>Username:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}"> *
+    </p>
+  {{end}}
+  {{with $field := field "user.Password" .}}
+    <p>
+      <strong>Password:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}"> *
+    </p>
+  {{end}}
+  {{with $field := field "user.RoleID" .}}
+    <p>
+      <strong>RoleID:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}"> *
+    </p>
+  {{end}}
+  <p class="buttons">
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<a href="{{url "Users.Index"}}">Cancel</a>
+
+{{template "footer.html" .}}

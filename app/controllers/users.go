@@ -1,38 +1,82 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/revel/revel"
+	"github.com/zuiurs/revel-sample-shop/app/models"
+	"github.com/zuiurs/revel-sample-shop/app/routes"
+	"golang.org/x/crypto/bcrypt"
 )
 
-type UsersController struct {
-	ShopController
+type Users struct {
+	Application
 }
 
-func (c UsersController) Index() revel.Result {
+func (c Users) Index() revel.Result {
+	users := []models.User{}
+
+	if err := DB.Order("id desc").Find(&users).Error; err != nil {
+		return c.HandleInternalServerError("Record Find Failure")
+	}
+
+	return c.Render(users)
+}
+
+func (c Users) Show(id int) revel.Result {
+	user := models.User{}
+
+	if err := DB.First(&user, id).Error; err != nil {
+		return c.HandleNotFoundError(err.Error())
+	}
+
 	r := Response{
-		Results: "index",
+		Results: user,
 	}
 	return c.RenderJson(r)
 }
 
-func (c UsersController) Show(id int) revel.Result {
-	r := Response{
-		Results: fmt.Sprint("show", id),
+func (c Users) Create(user models.User) revel.Result {
+	c.Validation.Required(user.Username)
+	c.Validation.Required(user.Password)
+
+	// roles.validate(c.validaton)
+
+	if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(routes.Users.CreatePage())
 	}
-	return c.RenderJson(r)
+
+	user.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+
+	if err := DB.Create(&user).Error; err != nil {
+		return c.HandleInternalServerError("Record Create Failure")
+	}
+
+	return c.Redirect(routes.Users.Index())
 }
 
-func (c UsersController) Create() revel.Result {
-	r := Response{
-		Results: "create",
-	}
-	return c.RenderJson(r)
+func (c Users) CreatePage() revel.Result {
+	return c.Render()
 }
 
-func (c UsersController) Delete(id int) revel.Result {
-	r := Response{
-		Results: fmt.Sprint("delete", id),
+func (c Users) Delete(id int) revel.Result {
+	user := models.User{}
+
+	if err := DB.First(&user, id).Error; err != nil {
+		return c.HandleNotFoundError(err.Error())
 	}
-	return c.RenderJson(r)
+
+	if err := DB.Delete(&user).Error; err != nil {
+		return c.HandleInternalServerError("Record Delete Failure")
+	}
+
+	return c.Redirect(routes.Users.Index())
+}
+
+func (c Users) Settings(id int) revel.Result {
+	return nil
+}
+
+func (c Users) SettingsPage(id int) revel.Result {
+	return c.Render()
 }

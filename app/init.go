@@ -28,6 +28,8 @@ func init() {
 	// revel.OnAppStart(FillCache)
 
 	revel.OnAppStart(controllers.InitDB)
+
+	revel.InterceptMethod(controllers.Application.HoldCurrentUser, revel.BEFORE)
 }
 
 // TODO turn this into revel.HeaderFilter

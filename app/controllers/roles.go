@@ -1,38 +1,70 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/revel/revel"
+	"github.com/zuiurs/revel-sample-shop/app/models"
+	"github.com/zuiurs/revel-sample-shop/app/routes"
 )
 
-type RolesController struct {
-	ShopController
+type Roles struct {
+	Application
 }
 
-func (c RolesController) Index() revel.Result {
+func (c Roles) Index() revel.Result {
+	roles := []models.Role{}
+
+	if err := DB.Order("id desc").Find(&roles).Error; err != nil {
+		return c.HandleInternalServerError("Record Find Failure")
+	}
+
+	return c.Render(roles)
+}
+
+func (c Roles) Show(id int) revel.Result {
+	role := models.Role{}
+
+	if err := DB.First(&role, id).Error; err != nil {
+		return c.HandleNotFoundError(err.Error())
+	}
+
 	r := Response{
-		Results: "index",
+		Results: role,
 	}
 	return c.RenderJson(r)
 }
 
-func (c RolesController) Show(id int) revel.Result {
-	r := Response{
-		Results: fmt.Sprint("show", id),
+func (c Roles) Create(role models.Role) revel.Result {
+	c.Validation.Required(role.Name)
+
+	// roles.validate(c.validaton)
+
+	if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(routes.Roles.CreatePage())
 	}
-	return c.RenderJson(r)
+
+	if err := DB.Create(&role).Error; err != nil {
+		return c.HandleInternalServerError("Record Create Failure")
+	}
+
+	return c.Redirect(routes.Roles.Index())
 }
 
-func (c RolesController) Create() revel.Result {
-	r := Response{
-		Results: "create",
-	}
-	return c.RenderJson(r)
+func (c Roles) CreatePage() revel.Result {
+	return c.Render()
 }
 
-func (c RolesController) Delete(id int) revel.Result {
-	r := Response{
-		Results: fmt.Sprint("delete", id),
+func (c Roles) Delete(id int) revel.Result {
+	role := models.Role{}
+
+	if err := DB.First(&role, id).Error; err != nil {
+		return c.HandleNotFoundError(err.Error())
 	}
-	return c.RenderJson(r)
+
+	if err := DB.Delete(&role).Error; err != nil {
+		return c.HandleInternalServerError("Record Delete Failure")
+	}
+
+	return c.Redirect(routes.Roles.Index())
 }
