@@ -30,7 +30,7 @@
         |
         <a class="header-link" href="{{url "Merchandises.Index"}}">Home</a>
         |
-        <a class="header-link" href="{{url "Users.SettingsPage"}}">Settings</a>
+        <a class="header-link" href="{{url "Users.SettingsPage" .currentUser.ID}}">Settings</a>
         |
         <a class="header-link" href="{{url "Application.Logout"}}">Logout</a>
       {{else}}
