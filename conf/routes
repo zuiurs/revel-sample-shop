@@ -29,6 +29,7 @@ GET     /logout                                 Application.Logout
 GET     /register                               Application.RegisterPage
 POST    /register                               Application.Register
 GET     /admin                                  Application.Admin
+GET     /admin/power                            Application.AdminPower
 
 
 # Ignore favicon requests

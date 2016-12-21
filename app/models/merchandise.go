@@ -7,7 +7,7 @@ import (
 type Merchandise struct {
 	ID          uint64     `json:"id" gorm:"primary_key"`
 	Name        string     `json:"name" gorm:"size:64"`
-	Price       int        `json:"price"`
+	Price       int64      `json:"price"`
 	Description string     `json:"description" gorm:"size:255"`
 	CreatedAt   time.Time  `json:"created_at"`
 	UpdatedAt   time.Time  `json:"updated_at"`

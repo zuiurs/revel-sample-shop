@@ -25,6 +25,10 @@
 	color: #00ff00;
 }
 
+.admin-link {
+	color: #ffc0cb;
+}
+
 .admin-mode {
 	font-size: 80%;
 	position: absolute;

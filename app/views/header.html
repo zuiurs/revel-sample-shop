@@ -28,7 +28,7 @@
       {{if .currentUser}}
         Connected as {{.currentUser.Username}}
         |
-        <a class="header-link" href="{{url "Merchandises.Index"}}">Search</a>
+        <a class="header-link" href="{{url "Merchandises.Index"}}">Home</a>
         |
         <a class="header-link" href="{{url "Users.SettingsPage"}}">Settings</a>
         |
@@ -39,10 +39,14 @@
         first
       {{end}}
       </div>
-      {{if eq .currentUser.RoleID 1}}
-      <div class="admin-mode">Admin mode</div>
-      {{else if eq .currentUser.RoleID 3}}
-      <div class="guest-mode">Guest mode</div>
+      {{if .currentUser}}
+        {{if eq .currentUser.RoleID 12}}
+        <div class="admin-mode">
+          <a class="admin-link" href="{{url "Application.Admin"}}">Admin mode</a>
+        </div>
+        {{else if eq .currentUser.RoleID 14}}
+        <div class="guest-mode">Guest mode</div>
+        {{end}}
       {{end}}
       </div>
     </header>
