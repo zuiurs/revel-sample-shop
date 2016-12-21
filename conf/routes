@@ -17,6 +17,8 @@ POST    /users                                  Users.Create
 POST    /users/:id/delete                       Users.Delete
 GET     /users/:id/settings                     Users.SettingsPage
 POST    /users/:id/settings                     Users.Settings
+GET     /users/:id/modify                       Users.ModifyPage
+POST    /users/:id/modify                       Users.Modify
 
 GET     /roles                                  Roles.Index
 GET     /roles/:id                              Roles.Show

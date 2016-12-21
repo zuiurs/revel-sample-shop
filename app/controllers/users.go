@@ -80,3 +80,35 @@ func (c Users) Settings(id int) revel.Result {
 func (c Users) SettingsPage(id int) revel.Result {
 	return c.Render()
 }
+
+func (c Users) ModifyPage(id int) revel.Result {
+	roles := []models.Role{}
+	if err := DB.Find(&roles).Error; err != nil {
+		c.HandleInternalServerError("Record Find Failure")
+	}
+
+	user := models.User{}
+	if err := DB.First(&user, id).Error; err != nil {
+		c.HandleInternalServerError("Record Find Failure")
+	}
+
+	return c.Render(roles, user)
+}
+
+// 引数はviewで宣言したやつと同じじゃなきゃダメ
+func (c Users) Modify(id int, user models.User) revel.Result {
+	u := models.User{}
+	if err := DB.First(&u, id).Error; err != nil {
+		c.HandleInternalServerError("Record Find Failure")
+	}
+
+	u.Username = user.Username
+	u.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	u.RoleID = user.RoleID
+
+	if err := DB.Save(&u).Error; err != nil {
+		c.HandleInternalServerError("Record Update Failure")
+	}
+
+	return c.Redirect(routes.Users.Index())
+}

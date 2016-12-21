@@ -1,0 +1,36 @@
+{{set . "title" "ModifyUser"}}
+{{template "header.html" .}}
+
+<h1>{{.user.Username}} Info:</h1>
+
+<form action="{{url "Users.Modify" .user.ID}}" method="POST">
+  {{with $field := field "user.Username" .}}
+    <p>
+      <strong>Username:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$.user.Username}}"> *
+    </p>
+  {{end}}
+  {{with $field := field "user.Password" .}}
+    <p>
+      <strong>Password:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}"> *
+    </p>
+  {{end}}
+  {{with $field := field "user.RoleID" .}}
+    <p>
+      <strong>RoleID:</strong>
+      <select name="{{$field.Name}}">
+        {{range $.roles}}
+        <option value="{{.ID}}" {{if eq $.user.RoleID .ID}}selected{{end}}>{{.Name}}</option>
+        {{end}}
+      </select>
+    </p>
+  {{end}}
+  <p class="buttons">
+    <input type="submit" value="Update" />
+  </p>
+</form>
+
+<a href="{{url "Users.Index"}}">Cancel</a>
+
+{{template "footer.html" .}}

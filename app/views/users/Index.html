@@ -30,6 +30,9 @@
         <form action="/users/{{.ID}}/delete" method="POST">
           <button type="submit" name="delete" value="Delete">Delete</button>
         </form>
+        <form action="/users/{{.ID}}/modify" method="GET">
+          <button type="submit" name="modify" value="Modify">Modify</button>
+        </form>
       </td>
 		</tr>
 		{{end}}
