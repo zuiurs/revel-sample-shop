@@ -1,0 +1,40 @@
+{{set . "title" "OrderIndex"}}
+{{template "header.html" .}}
+
+<h2>Order Index</h2>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>OrderID</th>
+			<th>ItemID</th>
+			<th>Num</th>
+			<th>CreatedAt</th>
+			<th>UpdatedAt</th>
+			<th>DeletedAt</th>
+      <th>Operation</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{range .orders}}
+		<tr>
+			<td>{{.ID}}</td>
+			<td>{{.OrderID}}</td>
+			<td>{{.ItemID}}</td>
+			<td>{{.Num}}</td>
+			<td>{{.CreatedAt}}</td>
+			<td>{{.UpdatedAt}}</td>
+			<td>{{.DeletedAt}}</td>
+      <td>
+        <form action="/orders/{{.ID}}/delete" method="POST">
+          <button type="submit" name="delete" value="Delete">Delete</button>
+        </form>
+      </td>
+		</tr>
+		{{end}}
+	</tbody>
+</table>
+
+{{template "footer.html" .}}
+

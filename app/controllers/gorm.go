@@ -26,6 +26,6 @@ func InitDB() {
 		log.Panicln("Failed to connect to database:", err)
 	}
 
-	db.AutoMigrate(&models.Merchandise{}, &models.User{}, &models.Role{})
+	db.AutoMigrate(&models.Merchandise{}, &models.User{}, &models.Role{}, &models.Order{})
 	DB = db
 }

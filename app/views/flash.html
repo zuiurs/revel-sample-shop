@@ -5,7 +5,7 @@
 {{end}}
 
 {{if or .errors .flash.error}}
-<div class="alert alert-error">
+<div class="alert alert-warning">
 	{{if .flash.error}}
     <strong>{{.flash.error}}</strong>
 	{{end}}

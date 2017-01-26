@@ -33,6 +33,10 @@
         <a class="header-link" href="{{url "Users.SettingsPage" .currentUser.ID}}">Settings</a>
         |
         <a class="header-link" href="{{url "Application.Logout"}}">Logout</a>
+        |
+        <form action="/orders" method="POST">
+          <button type="submit" name="order" value="Order" style="background-color:#111111;">Buy</button>
+        </form>
       {{else}}
         Please 
         <a class="header-link" href="{{url "Application.Login"}}">Login</a>

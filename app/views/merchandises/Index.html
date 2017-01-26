@@ -1,18 +1,30 @@
 {{set . "title" "MerchandiseIndex"}}
 {{template "header.html" .}}
 
-<h2>Shopping 棚</h2>
+<h2>Shopping</h2>
 
 <div class="container">
   <div class="row">
     {{range .merchandises}}
-    <div class="col-sm-3">
+    <div class="col-sm-3 itembox">
+      <img src="{{.ImageURL}}" width=100 height=100 /><br />
       {{.Name}}<br />
-      $ {{.Price}}<br />
-      {{.Description}}
+      ￥ {{.Price}}<br />
+      {{.Description}}<br />
+      <form action="/merchandises/{{.ID}}/delete" method="POST">
+        <button type="submit" name="delete" value="Delete">Delete</button>
+      </form>
+      <form action="/merchandises/{{.ID}}/modify" method="GET">
+        <button type="submit" name="modify" value="Modify">Modify</button>
+      </form>
+      <form action="/merchandises/{{.ID}}/add" method="GET">
+        <button type="submit" name="add" value="Add">Add to cart</button>
+      </form>
     </div>
     {{end}}
   </div>
 </div>
+
+<a href="{{url "Merchandises.Create"}}">New Merchandise</a>
 
 {{template "footer.html" .}}

@@ -1,0 +1,39 @@
+{{set . "title" "Create"}}
+{{template "header.html" .}}
+
+<h1>Merchandise Form:</h1>
+
+<form action="{{url "Merchandises.Create"}}" method="POST">
+  {{with $field := field "merchandise.Name" .}}
+    <p>
+      <strong>Name:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}" /> *
+    </p>
+  {{end}}
+  {{with $field := field "merchandise.Price" .}}
+    <p>
+      <strong>Price:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}" /> *
+    </p>
+  {{end}}
+  {{with $field := field "merchandise.Description" .}}
+    <p>
+      <strong>Description:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}" /> *
+    </p>
+  {{end}}
+  {{with $field := field "merchandise.ImageURL" .}}
+    <p>
+      <strong>ImageURL:</strong>
+      <input type="text" name="{{$field.Name}}" size="19" value="{{$field.Flash}}" /> *
+      <img src="{{$field.Flash}}" />
+    </p>
+  {{end}}
+  <p class="buttons">
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<a href="{{url "Merchandises.Index"}}">Cancel</a>
+
+{{template "footer.html" .}}

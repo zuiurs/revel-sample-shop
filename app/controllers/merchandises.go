@@ -1,10 +1,10 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/revel/revel"
 	"github.com/zuiurs/revel-sample-shop/app/models"
 	"github.com/zuiurs/revel-sample-shop/app/routes"
-	"gopkg.in/validator.v2"
 )
 
 type Merchandises struct {
@@ -34,25 +34,16 @@ func (c Merchandises) Show(id int) revel.Result {
 	return c.RenderJson(r)
 }
 
-func (c Merchandises) Create() revel.Result {
-	merchandise := models.Merchandise{}
-
-	if err := c.BindParams(&merchandise); err != nil {
-		return c.HandleBadRequestError(err.Error())
-	}
-
-	if err := validator.Validate(&merchandise); err != nil {
-		return c.HandleBadRequestError(err.Error())
+func (c Merchandises) Create(merchandise models.Merchandise) revel.Result {
+	if c.Request.Method == "GET" {
+		return c.Render()
 	}
 
 	if err := DB.Create(&merchandise).Error; err != nil {
 		return c.HandleInternalServerError("Record Create Failure")
 	}
 
-	r := Response{
-		Results: merchandise,
-	}
-	return c.RenderJson(r)
+	return c.Redirect(routes.Merchandises.Index())
 }
 
 func (c Merchandises) Delete(id int) revel.Result {
@@ -66,5 +57,11 @@ func (c Merchandises) Delete(id int) revel.Result {
 		return c.HandleInternalServerError("Record Delete Failure")
 	}
 
+	return c.Redirect(routes.Merchandises.Index())
+}
+
+func (c Merchandises) AddCart(id int) revel.Result {
+	c.Session["_cart"] += fmt.Sprintf("&%d#%d", id, 1) // 1はいずれ個数に置き換える
+	c.Flash.Success(fmt.Sprintf("Add %d", id))
 	return c.Redirect(routes.Merchandises.Index())
 }

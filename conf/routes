@@ -7,9 +7,11 @@ module:testrunner
 GET     /                                       Application.Index
 
 GET     /merchandises                           Merchandises.Index
+GET     /merchandises/create                    Merchandises.Create
+POST    /merchandises/create                    Merchandises.Create
 GET     /merchandises/:id                       Merchandises.Show
-POST    /merchandises                           Merchandises.Create
 POST    /merchandises/:id/delete                Merchandises.Delete
+GET     /merchandises/:id/add                       Merchandises.AddCart
 
 GET     /users                                  Users.Index
 GET     /users/:id                              Users.Show
@@ -32,6 +34,10 @@ GET     /register                               Application.RegisterPage
 POST    /register                               Application.Register
 GET     /admin                                  Application.Admin
 GET     /admin/power                            Application.AdminPower
+
+GET     /orders                                 Orders.Index
+POST    /orders                                 Orders.Complete
+POST    /orders/:id/delete                      Orders.Delete
 
 
 # Ignore favicon requests
